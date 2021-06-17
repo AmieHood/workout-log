@@ -62,8 +62,6 @@ router.get("/:id", validateJWT, async (req, res) => {
 
 router.put("/:id", validateJWT, async (req, res) => {
     const { description, definition, result } = req.body.log
-    const logId = req.params.id
-    const userId = req.user.id
 
     const query = {
         where: {
@@ -88,8 +86,6 @@ router.put("/:id", validateJWT, async (req, res) => {
 
 //Delete logs by user
 router.delete("/:id", validateJWT, async (req, res) => {
-    const ownerId = req.user.id
-    const logId = req.params.id
 
     try {
         const query = {
