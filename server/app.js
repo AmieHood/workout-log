@@ -9,9 +9,10 @@ const controllers = require('./controllers')
 
 app.use(Express.json())
 
+app.use(require('./middleware/header'))
 app.use('/user', controllers.userController)
 
-app.use(require("./middleware/validate-jwt"))
+// app.use(require("./middleware/validate-jwt"))
 
 app.use('/log', controllers.logController)
 

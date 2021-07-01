@@ -9,12 +9,13 @@ router.get('/practice', validateJWT, (req, res) => {
 
 //Log Create
 router.post("/", validateJWT, async(req, res) => {
-    const { description, definition, result } = req.body.log
+    const { description, definition, result, date } = req.body.log
     const { id } = req.user
     const logEntry = {
         description,
         definition,
         result,
+        date,
         owner_id: id
     }
     try {
@@ -61,7 +62,7 @@ router.get("/:id", validateJWT, async (req, res) => {
 //update logs by user
 
 router.put("/:id", validateJWT, async (req, res) => {
-    const { description, definition, result } = req.body.log
+    const { description, definition, result, date } = req.body.log
 
     const query = {
         where: {
@@ -74,6 +75,7 @@ router.put("/:id", validateJWT, async (req, res) => {
         description: description,
         definition: definition,
         result: result,
+        date: date,
     }
 
     try {
@@ -90,8 +92,8 @@ router.delete("/:id", validateJWT, async (req, res) => {
     try {
         const query = {
             where: {
-                id: req.user.id,
-                owner_id: req.params.id
+                owner_id: req.user.id,
+                id: req.params.id
             }
         }
         await LogModel.destroy(query)
